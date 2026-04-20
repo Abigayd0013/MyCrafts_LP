@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyCrafts</title>
+    <link rel="stylesheet" href="https://use.typekit.net/pev5lsb.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #FFC0D3, #F768B8);
+            font-family: "neulis-sans", sans-serif;
+            color: #2C2C2C;
+            overflow-x: hidden;
+        }
+
+        /* --- Fondo mágico con hadas y destellos --- */
+        .magic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-fairy {
+            position: absolute;
+            font-size: 2.5rem;
+            opacity: 0.2;
+            animation: floatFairy 22s infinite ease-in-out;
+        }
+
+        @keyframes floatFairy {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(45px, -35px) rotate(8deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        .glow-star {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #FFE198;
+            border-radius: 50%;
+            box-shadow: 0 0 12px #FFE198;
+            animation: pulseGlow 3s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.2; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.5); }
+        }
+
+        .blob {
+            position: absolute;
+            background: rgba(170, 175, 231, 0.2);
+            border-radius: 60% 40% 70% 30% / 40% 50% 50% 60%;
+            filter: blur(70px);
+            z-index: 0;
+        }
+
+        /* Contenedor principal */
+        .landing {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Logo sin menú */
+        .logo-center {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .logo {
+            font-family: "hagrid", sans-serif;
+            font-size: 3rem;
+            background: linear-gradient(135deg, #FFFFFF, #FFE198, #FE8FC4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Hero principal */
+        .hero {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .hero h1 {
+            font-family: "neulis-cursive", sans-serif;
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #7A6DA2, #CB99CC, #F768B8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: #3A2C36;
+            font-weight: 500;
+        }
+
+        .btn-glow {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #7A6DA2;
+            color: white;
+            padding: 16px 40px;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: 0.2s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-glow:hover {
+            background: #AAAFE7;
+            transform: translateY(-4px);
+            box-shadow: 0 18px 25px -8px rgba(0,0,0,0.3);
+        }
+
+        /* Sección de características */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 80px 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 248, 250, 0.75);
+            backdrop-filter: blur(12px);
+            border-radius: 48px;
+            padding: 35px 20px;
+            text-align: center;
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,240,0.6);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 248, 250, 0.95);
+        }
+
+        .feature-icon {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #00CCFF, #44D0CD);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-family: "neulis-cursive", sans-serif;
+            font-size: 1.7rem;
+            margin-bottom: 12px;
+            color: #4A2C3A;
+        }
+
+        /* Sección de categorías destacadas */
+        .showcase {
+            margin: 80px 0;
+            text-align: center;
+        }
+
+        .section-title {
+            font-family: "neulis-cursive", sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #2C2C2C;
+        }
+
+        .section-sub {
+            margin-bottom: 50px;
+            font-size: 1.1rem;
+            color: #4A3A44;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .work-card {
+            background: rgba(255,255,245,0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 36px;
+            overflow: hidden;
+            transition: 0.3s;
+            box-shadow: 0 15px 25px -10px rgba(0,0,0,0.15);
+        }
+
+        .work-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .work-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .work-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .work-info h4 {
+            font-family: "neulis-cursive", sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: #7A6DA2;
+        }
+
+        /* Testimonios */
+        .testimonials {
+            background: rgba(255, 235, 245, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 60px;
+            padding: 50px 30px;
+            margin: 80px 0;
+            text-align: center;
+        }
+
+        .testi-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .testi-card {
+            background: white;
+            border-radius: 40px;
+            padding: 25px;
+            max-width: 280px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .testi-card i {
+            font-size: 2rem;
+            color: #FE8FC4;
+            margin-bottom: 15px;
+        }
+
+        /* CTA final */
+        .cta-final {
+            background: linear-gradient(135deg, #90E9D7, #44D0CD);
+            border-radius: 70px;
+            padding: 60px 30px;
+            text-align: center;
+            color: #1F2A2A;
+        }
+
+        .cta-final h2 {
+            font-family: "neulis-cursive", sans-serif;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            background: #FFE198;
+            color: #2C2C2C;
+            padding: 14px 35px;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            transition: 0.2s;
+        }
+
+        .btn-cta:hover {
+            background: #FFC0D3;
+            transform: scale(1.02);
+        }
+
+        /* Footer simple */
+        .footer-simple {
+            text-align: center;
+            margin-top: 80px;
+            padding: 30px;
+            color: #2C2C2C;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 780px) {
+            .hero h1 { font-size: 2.2rem; }
+            .logo { font-size: 2.2rem; }
+            .section-title { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Fondo mágico -->
+<div class="magic-bg">
+    <div class="floating-fairy" style="top: 8%; left: 2%;">🧚‍♀️</div>
+    <div class="floating-fairy" style="top: 80%; left: 92%; animation-duration: 24s;">🧚</div>
+    <div class="floating-fairy" style="top: 35%; left: 88%; animation-duration: 19s;">✨</div>
+    <div class="floating-fairy" style="top: 88%; left: 5%; animation-duration: 21s;">🦋</div>
+    <div class="floating-fairy" style="top: 55%; left: 12%;">🌸</div>
+    <div class="glow-star" style="top: 15%; left: 10%;"></div>
+    <div class="glow-star" style="top: 45%; left: 88%; animation-delay: 1s;"></div>
+    <div class="glow-star" style="top: 75%; left: 25%; animation-delay: 0.5s;"></div>
+    <div class="glow-star" style="top: 90%; left: 75%;"></div>
+    <div class="blob" style="width: 400px; height: 400px; top: -100px; right: -150px; background: #CB99CC;"></div>
+    <div class="blob" style="width: 350px; height: 350px; bottom: -80px; left: -120px; background: #AAAFE7;"></div>
+</div>
+
+<div class="landing">
+    <div class="logo-center">
+        <div class="logo">MyCrafts</div>
+    </div>
+
+    <section class="hero">
+        <h1>✨ ¡La nueva web ha llegado! ✨</h1>
+        <p>Todo lo que amas de MyCrafts, ahora en un solo lugar.</p>
+        <a href="https://abigayd0013.github.io/MyCrafts/" class="btn-glow"><i class="fa-regular fa-wand-magic"></i> Descubrir la web</a>
+    </section>
+
+    <section class="features">
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-regular fa-gem"></i></div>
+            <h3>Piezas únicas</h3>
+            <p>Cada creación es hecha a mano con materiales de alta calidad.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-regular fa-pen-to-square"></i></div>
+            <h3>Personalización total</h3>
+            <p>Diseñamos según tus gustos, colores e ideas.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-regular fa-truck-fast"></i></div>
+            <h3>Envíos a todo Tampico, Madero y ALtamira</h3>
+            <p>Llevamos tus ideas a tu hogar.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-regular fa-leaf"></i></div>
+            <h3>Materiales de Calidad</h3>
+            <p>Comprometidos a dar lo mejor de nosotros.</p>
+        </div>
+    </section>
+
+    <section class="showcase">
+        <h2 class="section-title">✨ Lo que encontrarás en la nueva web ✨</h2>
+        <p class="section-sub">Categorías llenas de magia para inspirarte</p>
+        <div class="cards-grid">
+            <div class="work-card">
+                <img src="C:\Users\imaby\Desktop\Mycrafts\027.png" alt="Maquetas">
+                <div class="work-info">
+                    <h4>Maquetas </h4>
+                    <p>Construimos tus ideas a escala.</p>
+                </div>
+            </div>
+            <div class="work-card">
+                <img src="C:\Users\imaby\Desktop\Mycrafts\008.jpg" alt="Vinil">
+                <div class="work-info">
+                    <h4>Vinil personalizado</h4>
+                    <p>Playeras, tazas, termos.</p>
+                </div>
+            </div>
+            <div class="work-card">
+                <img src="C:\Users\imaby\Desktop\Mycrafts\015.jpg" alt="Cuadernos">
+                <div class="work-info">
+                    <h4>Papeleria Creativa</h4>
+                    <p>Forros de calidad, stickers y etiquetas.</p>
+                </div>
+            </div>
+            <div class="work-card">
+                <img src="C:\Users\imaby\Desktop\Mycrafts\IMG (20).jpg" alt="Decoración">
+                <div class="work-info">
+                    <h4>Decoración para eventos</h4>
+                    <p>Centros de mesa, personajes, todo lo que puedas imaginar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h2 class="section-title">💬 Lo que dicen nuestros clientes 💬</h2>
+        <div class="testi-grid">
+            <div class="testi-card">
+                <i class="fa-regular fa-star"></i>
+                <p>"La nueva web es preciosa y fácil de usar. Encontré justo lo que necesitaba."</p>
+                <strong>- Ana G.</strong>
+            </div>
+            <div class="testi-card">
+                <i class="fa-regular fa-heart"></i>
+                <p>"Pedí una maqueta personalizada y quedó increíble. El proceso fue muy sencillo."</p>
+                <strong>- Carlos M.</strong>
+            </div>
+            <div class="testi-card">
+                <i class="fa-regular fa-gem"></i>
+                <p>"Me encanta la sección de cuadernos, volveré a comprar sin duda."</p>
+                <strong>- Laura F.</strong>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-final">
+        <h2>🪄 ¿Listo para descubrir lo qu se puede hacer realidad?</h2>
+        <p>Visita nuestra nueva web y descubre todo lo que podemos hacer juntos.</p>
+        <a href="https://abigayd0013.github.io/MyCrafts/" class="btn-cta">Ir a la web de MyCrafts →</a>
+    </section>
+
+    <div class="footer-simple">
+        <p>© 2025 MyCrafts</p>
+        <p>Donde tus ideas se vuelven realidad</p>
+    </div>
+</div>
+
+</body>
+</html>
